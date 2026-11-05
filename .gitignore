@@ -1,0 +1,15 @@
+# saídas geradas
+estudio/calendario/capas_nov/capas/
+estudio/calendario/carrosseis_nov/[0-3][0-9]_*/
+estudio/**/slides/
+estudio/**/*.mp4
+estudio/**/*.html.tmp
+**/node_modules/
+**/__pycache__/
+.DS_Store
+# conteúdo privado (nunca subir)
+estudio/calendario/capas_nov/fotos/*.jpg
+estudio/carrossel_fome_de_poder/fotos/*.jpg
+estudio/personagem/recortes/*.png
+.env
+*.token

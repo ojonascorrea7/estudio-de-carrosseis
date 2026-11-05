@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<script src="../animar.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1080px;height:1350px;overflow:hidden}
+body{background:#111827;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;position:relative}
+.tag{position:absolute;left:72px;top:220px;background:#2563EB;font-weight:800;font-size:28px;letter-spacing:3px;padding:10px 20px;border-radius:8px}
+.num{position:absolute;left:72px;top:300px;font-size:210px;font-weight:800;letter-spacing:-6px;color:#FACC15;white-space:nowrap}
+.txt{position:absolute;left:72px;right:72px;top:560px;font-size:64px;font-weight:800;line-height:1.1}
+.barras{position:absolute;left:72px;right:72px;top:860px;height:200px;display:flex;align-items:flex-end;gap:16px}
+.barras i{flex:1;background:rgba(255,255,255,.18);border-radius:10px 10px 0 0}.barras i.f{background:#FACC15}
+</style></head><body>
+<div class="tag">EXEMPLO · DADO EM MOVIMENTO</div>
+<div class="num" id="num">R$ 3,17 bi</div>
+<div class="txt">vendidos em um dia só.<br>Quanto disso foi seu?</div>
+<div class="barras" id="barras"><i style="height:25%"></i><i style="height:35%"></i><i style="height:30%"></i><i style="height:40%"></i><i class="f" style="height:100%"></i></div>
+<script>
+// 8 s = 4 compassos a 120 BPM. Quadro 0 = design estático pronto; no fim tudo volta ao repouso.
+const A = ANIMAR;
+A.pronto(() => {
+  const num = document.getElementById('num'), original = num.textContent;
+  const barras = [...document.querySelectorAll('#barras i')];
+  A.slide(8, (t) => {
+    // número some, conta de 0 até o valor e carimba
+    let texto = original;
+    if (t >= 0.5 && t < 2.5) texto = 'R$ ' + (3.17 * A.saida(A.trecho(t, 0.8, 2.5))).toFixed(2).replace('.', ',') + ' bi';
+    if (num.textContent !== texto) num.textContent = texto;
+    const c = A.carimbo(t, 2.5, 0.08);
+    A.transforma(num, c.sx === 1 ? '' : `scale(${c.sx.toFixed(4)},${c.sy.toFixed(4)})`, '0% 100%');
+    // barras recolhem e crescem uma por batida
+    barras.forEach((b, k) => {
+      const sobe = 1 + k * 0.5;
+      let s = 1;
+      if (t >= 0.5 && t < sobe) s = 1 - A.suave(A.trecho(t, 0.5, 0.8));
+      else if (t >= sobe) s = A.passa(A.trecho(t, sobe, sobe + 0.45));
+      A.transforma(b, Math.abs(s - 1) < 1e-4 ? '' : `scaleY(${Math.max(s, 0).toFixed(4)})`, '50% 100%');
+    });
+  });
+});
+</script></body></html>
