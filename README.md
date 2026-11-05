@@ -4,10 +4,20 @@ Sistema para criar carrosséis de Instagram em código: da pauta ao PNG pronto p
 
 Tudo é HTML desenhado por código e fotografado pelo Chrome em 1080x1350. O texto é texto de verdade, nítido, sem imagem gerada por IA com letras tortas. Uma mesma pauta pode virar 7 layouts diferentes.
 
+## Use como skill do Claude Code
+Este repositório já é uma skill: o `SKILL.md` na raiz ensina o Claude a seguir o método inteiro (pauta → capas → grade → 7 slides → crítica → entrega).
+
+```bash
+git clone https://github.com/ojonascorrea7/estudio-de-carrosseis.git ~/.claude/skills/estudio-de-carrosseis
+```
+
+Depois é só pedir no Claude Code: "faz um carrossel sobre X" ou "monta os carrosséis do mês". Na primeira vez, ele cria o `marca.md` a partir do `modelo_marca.md`, com as informações do seu perfil.
+
 ## O que tem aqui
 
 | Pasta | O que faz |
 |---|---|
+| `SKILL.md` · `modelo_marca.md` | A skill (fluxo com paradas de aprovação, regras e checklist) e o modelo de configuração da marca |
 | `docs/` | O método: pesquisa de pauta, layouts, sequência da grade, copy e CTA, carrossel animado |
 | `estudio/calendario/capas_nov/montar_capas.py` | Gera capas em 7 layouts (notícia, foto, tweet, print de WhatsApp, dados, tirinha, Liquid Glass) |
 | `estudio/calendario/carrosseis_nov/` | `roteiro.py` (conteúdo de um mês inteiro, como exemplo) e `montar_carrosseis.py` (gera os slides internos e o CTA no estilo de cada capa) |
